@@ -71,3 +71,53 @@ body {
   height: 100%;
   border: 0;
 }
+
+/* Lightbox Overlay */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-img {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+.lightbox-nav button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
+  padding: 20px;
+}
+
+#prevBtn { left: 10px; }
+#nextBtn { right: 10px; }
+
+.photo-grid img {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.02);
+}
