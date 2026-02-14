@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title id="pageTitle">Property</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Property Header -->
+  <header class="property-header">
+    <h1 id="propertyAddress"></h1>
+    <h3 id="propertyCity"></h3>
+    <h2 id="propertyPrice"></h2>
+    <p id="propertyDescription"></p>
+  </header>
+
+  <!-- Photo Gallery -->
+  <section id="gallery" class="photo-grid"></section>
+
+  <!-- Videos -->
+  <section id="videoSection" style="display:none;">
+    <h2>Video</h2>
+    <div id="videos"></div>
+  </section>
+
+  <!-- Embeds -->
+  <section id="embedSection" style="display:none;">
+    <h2>Interactive Media</h2>
+    <div id="embeds" class="embed-grid"></div>
+  </section>
+
+</div>
+
+<script>
+fetch('config.json')
+  .then(res => res.json())
+  .then(config => {
+
+    // Page title
+    document.title = config.property.address;
+
+    // Property Info
+    document.getElementById('propertyAddress').textContent = config.property.address;
+    document.getElementById('propertyCity').textContent = config.property.city;
+    document.getElementById('propertyPrice').textContent = config.property.price;
+    document.getElementById('propertyDescription').textContent = config.property.description;
+
+    // Photos
+    if (config.photos && config.photos.length > 0) {
+      const gallery = document.getElementById('gallery');
+      config.photos.forEach(src => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.loading = "lazy";
+        gallery.appendChild(img);
+      });
+    }
+
+    // Videos
+    if (config.videos && config.videos.length > 0) {
+      const videoSection = document.getElementById('videoSection');
+      const videoContainer = document.getElementById('videos');
+      videoSection.style.display = 'block';
+
+      config.videos.forEach(src => {
+        const video = document.createElement('video');
+        video.src = src;
+        video.controls = true;
+        video.loading = "lazy";
+        videoContainer.appendChild(video);
+      });
+    }
+
+    // Embeds
+    if (config.embeds && config.embeds.length > 0) {
+      const embedSection = document.getElementById('embedSection');
+      const embedContainer = document.getElementById('embeds');
+      embedSection.style.display = 'block';
+
+      config.embeds.forEach(item => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('embed-wrapper');
+
+        const iframe = document.createElement('iframe');
+        iframe.src = item.url;
+        iframe.allowFullscreen = true;
+
+        wrapper.appendChild(iframe);
+        embedContainer.appendChild(wrapper);
+      });
+    }
+
+  })
+  .catch(error => {
+    console.error("Config failed to load:", error);
+  });
+</script>
+
+</body>
+</html>

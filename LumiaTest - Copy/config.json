@@ -1,0 +1,45 @@
+{
+  "property": {
+    "address": " ADDRESS GOES HERE",
+    "city": "CITY NAME, STATE",
+    "price": "$ PRICE ",
+    "description": " ENTER DESCRIPTION HERE"
+  },
+  "sections": {
+    "photos": true,
+    "videos": true,
+    "embeds": true
+  },
+  "photos": [
+    "assets/photos/_DSC5915.jpg",
+    "assets/photos/_DSC5918.jpg",
+    "assets/photos/_DSC5921.jpg",
+    "assets/photos/_DSC5924.jpg",
+    "assets/photos/_DSC5930.jpg",
+    "assets/photos/_DSC5933.jpg",
+    "assets/photos/_DSC5936.jpg",
+    "assets/photos/_DSC5939.jpg",
+    "assets/photos/_DSC5942.jpg",
+    "assets/photos/_DSC5945.jpg",
+    "assets/photos/_DSC5951.jpg",
+    "assets/photos/_DSC5957.jpg",
+    "assets/photos/_DSC5960.jpg",
+    "assets/photos/_DSC5963.jpg",
+    "assets/photos/_DSC5966.jpg",
+    "assets/photos/_DSC5972.jpg",
+    "assets/photos/_DSC5975.jpg",
+    "assets/photos/_DSC5978.jpg",
+    "assets/photos/_DSC5981.jpg",
+    "assets/photos/_DSC5984.jpg"
+  ],
+  "videos": [
+    "assets/videos/Video Project.mp4",
+    "assets/videos/Video Project 2.mp4"
+  ],
+  "embeds": [
+    {
+      "title": " TITLE OF EMBED",
+      "url": ""
+    }
+  ]
+}
