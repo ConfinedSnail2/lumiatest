@@ -50,16 +50,71 @@ fetch('config.json')
     document.getElementById('propertyDescription').textContent = config.property.description;
 
     // Photos
-    if (config.photos && config.photos.length > 0) {
-      const gallery = document.getElementById('gallery');
-      config.photos.forEach(src => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.loading = "lazy";
-        gallery.appendChild(img);
-      });
-    }
+    
+      let currentIndex = 0;
+      let photoArray = [];
 
+      if (config.photos && config.photos.length > 0) {
+        const gallery = document.getElementById('gallery');
+        photoArray = config.photos;
+      
+        config.photos.forEach((src, index) => {
+          const img = document.createElement('img');
+          img.src = src;
+          img.loading = "lazy";
+          img.addEventListener('click', () => openLightbox(index));
+          gallery.appendChild(img);
+        });
+      }
+     
+          const lightbox = document.getElementById('lightbox');
+          const lightboxImage = document.getElementById('lightboxImage');
+          const closeBtn = document.querySelector('.close');
+          const prevBtn = document.getElementById('prevBtn');
+          const nextBtn = document.getElementById('nextBtn');
+              
+          function openLightbox(index) {
+            currentIndex = index;
+            lightbox.style.display = 'flex';
+            lightboxImage.src = photoArray[currentIndex];
+          }
+          
+          function closeLightbox() {
+            lightbox.style.display = 'none';
+          }
+          
+          function showNext() {
+            currentIndex = (currentIndex + 1) % photoArray.length;
+            lightboxImage.src = photoArray[currentIndex];
+          }
+          
+          function showPrev() {
+            currentIndex = (currentIndex - 1 + photoArray.length) % photoArray.length;
+            lightboxImage.src = photoArray[currentIndex];
+          }
+          
+          closeBtn.addEventListener('click', closeLightbox);
+          nextBtn.addEventListener('click', showNext);
+          prevBtn.addEventListener('click', showPrev);
+          
+          // Close when clicking outside image
+          lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+              closeLightbox();
+            }
+          });
+          
+          // Keyboard navigation
+          document.addEventListener('keydown', (e) => {
+            if (lightbox.style.display === 'flex') {
+              if (e.key === 'ArrowRight') showNext();
+              if (e.key === 'ArrowLeft') showPrev();
+              if (e.key === 'Escape') closeLightbox();
+            }
+          });
+          
+      
+    
     // Videos
     if (config.videos && config.videos.length > 0) {
       const videoSection = document.getElementById('videoSection');
@@ -99,6 +154,17 @@ fetch('config.json')
     console.error("Config failed to load:", error);
   });
 </script>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-img" id="lightboxImage">
+  <div class="lightbox-nav">
+    <button id="prevBtn">&#10094;</button>
+    <button id="nextBtn">&#10095;</button>
+  </div>
+</div>
+
 
 </body>
 </html>
